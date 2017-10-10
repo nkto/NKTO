@@ -1,0 +1,31 @@
+version: "3"
+services:
+  db:
+    image: mariadb
+    restart: always
+    environment: 
+      MYSQL_ROOT_PASSWORD: qwer123
+    expose:
+      - "3306"
+    ports:
+      - "8008:3306"
+    hostname: "db"
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    environment:
+     PMA_HOST: "db"
+    restart: always
+    ports:
+     - "8088:80"
+    links:
+      - "db"
+
+  web:
+    image: dockerfiles/django-uwsgi-nginx
+    ports:
+      - "8081:80"
+    restart: always
+    volumes:
+      - "./nkto:/home/docker/code/app"
+      - "./static:/home/docker/volatile/static"
