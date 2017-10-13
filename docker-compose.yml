@@ -27,5 +27,5 @@ services:
       - "8081:80"
     restart: always
     volumes:
-      - "./nkto:/home/docker/code/app"
+      - "./website:/home/docker/code/app"
       - "./static:/home/docker/volatile/static"
