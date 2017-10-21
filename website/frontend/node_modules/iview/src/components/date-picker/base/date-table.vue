@@ -3,7 +3,9 @@
         :class="classes"
         @mousemove="handleMouseMove">
         <div :class="[prefixCls + '-header']">
-            <span>{{ t('i.datepicker.weeks.sun') }}</span><span>{{ t('i.datepicker.weeks.mon') }}</span><span>{{ t('i.datepicker.weeks.tue') }}</span><span>{{ t('i.datepicker.weeks.wed') }}</span><span>{{ t('i.datepicker.weeks.thu') }}</span><span>{{ t('i.datepicker.weeks.fri') }}</span><span>{{ t('i.datepicker.weeks.sat') }}</span>
+            <span v-for="day in headerDays" :key="day">
+                {{day}}
+            </span>
         </div>
         <span :class="getCellCls(cell)" v-for="(cell, index) in readCells"><em :index="index" @click="handleClick(cell)">{{ cell.text }}</em></span>
     </div>
@@ -87,10 +89,18 @@
                     `${prefixCls}`
                 ];
             },
+            headerDays () {
+                const weekStartDay = Number(this.t('i.datepicker.weekStartDay'));
+                const translatedDays = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'].map(item => {
+                    return this.t('i.datepicker.weeks.' + item);
+                });
+                const weekDays = translatedDays.splice(weekStartDay, 7 - weekStartDay).concat(translatedDays.splice(0, weekStartDay));
+                return weekDays;
+            },
             cells () {
                 const date = new Date(this.year, this.month, 1);
-                let day = getFirstDayOfMonth(date);    // day of first day
-                day = (day === 0 ? 7 : day);
+                const weekStartDay = Number(this.t('i.datepicker.weekStartDay'));
+                const day = (getFirstDayOfMonth(date) || 7) - weekStartDay; // day of first day
                 const today = clearHours(new Date());    // timestamp of today
                 const selectDay = clearHours(new Date(this.value));    // timestamp of selected day
                 const minDay = clearHours(new Date(this.minDate));

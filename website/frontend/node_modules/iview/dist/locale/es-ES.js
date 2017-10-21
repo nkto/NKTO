@@ -119,6 +119,7 @@ exports.default = {
             month11: 'Noviembre',
             month12: 'Deciembre',
             year: 'Año',
+            weekStartDay: '1',
             weeks: {
                 sun: 'Domingo',
                 mon: 'Lunes',

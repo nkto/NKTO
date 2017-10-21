@@ -119,6 +119,7 @@ exports.default = {
             month11: 'Kasım',
             month12: 'Aralık',
             year: '',
+            weekStartDay: '0',
             weeks: {
                 sun: 'Paz',
                 mon: 'Pzt',
