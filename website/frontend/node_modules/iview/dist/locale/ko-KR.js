@@ -119,6 +119,7 @@ exports.default = {
             month11: '11월',
             month12: '12월',
             year: '년',
+            weekStartDay: '0',
             weeks: {
                 sun: '일',
                 mon: '월',
