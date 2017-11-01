@@ -1,6 +1,6 @@
-./website/website/__pycache__/*
-./website/website/*.pyc
-./website/website/db.sqlite3
-./website/frontend/dist/*
-./website/frontend/node_modules/*
+website/website/__pycache__/*
+website/website/*.pyc
+website/db.sqlite3
+website/frontend/dist/*
+website/frontend/node_modules/*
 
