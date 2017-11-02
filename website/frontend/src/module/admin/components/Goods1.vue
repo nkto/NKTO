@@ -5,10 +5,18 @@
       <Button @click="search">查询</Button>
       <div class="head-right">
       </div>
+			<div class="head-right">
+        <Select v-model="sortKeyWord" @on-change="changeSort" style="width:12vw;text-align:left;">
+          <Option v-for="item of sortList" :value="item" :key="item">{{ item }}</Option>
+        </Select>
+        <Select v-model="sortOrder" @on-change="changeSort" style="width:12vw;text-align:left;margin-left:1vw;">
+          <Option v-for="item of orderList" :value="item" :key="item">{{ item }}</Option>
+        </Select>
+      </div>
     </div>
     <Row class="table">
-        <Table border :columns="userForm" :data="userDataShow" ref="table"></Table>
-        <Page :total="userData.length" @on-change="changePage" :page-size="pageSize" style="margin-top:1vh;"></Page>
+        <Table border :columns="goodsForm" :data="goodsDataShow" ref="table"></Table>
+        <Page :total="goodsData.length" @on-change="changePage" :page-size="pageSize" style="margin-top:1vh;"></Page>
     </Row>
     <br>
     <Button type="primary" size="large" @click="exportData(1)"><Icon type="ios-download-outline"></Icon> 导出原始数据</Button>
@@ -19,83 +27,67 @@
     data () {
       return {
         stateMap: {
-          '-1': '已被注销',
-          '0': '未激活',
-          '1': '不在线',
-          '2': '休息中',
-          '3': '工作中'
+          '0': '在售',
+          '1': '已售'
         }, // (要改)
-        sortList: ['按关键字排序', '状态', '邮箱', '手机'], // 排序的所有关键字(要改)
+        sortList: ['按关键字排序', '定价', '估价', '状态'], // 排序的所有关键字(要改)
         sortKeyWord: '按关键字排序', // 排序关键字
         sortOrder: '升序', // 升序或降序
         orderList: ['升序', '降序'],
         searchWord: '', // 搜索用户的关键词
-        userEmail: '', // 邀请用户输入的邮箱
-        userForm: [
+        goodsEmail: '', // 邀请用户输入的邮箱
+        goodsForm: [
           {
             'title': 'ID',
-            'key': 'uid'
+            'key': 'gid'
           }, {
-            'title': '状态',
+            'title': '商品名',
+            'key': 'name'
+          }, {
+            'title': '拥有者',
+            'key': 'owner'
+          }, {
+            'title': '定价',
+            'key': 'price'
+          }, {
+            'title': '估价',
+            'key': 'eval_price'
+          }, {
+            'title': '种类',
+            'key': 'category'
+          }, {
+            'title': '商品状态',
             'key': 'state'
-          }, {
-            'title': '邮箱',
-            'key': 'email'
-          }, {
-            'title': '手机',
-            'key': 'phone'
-          }, {
-            'title': '操作',
-            'key': 'action',
-            width: 150,
-            align: 'center',
-            render: (h, params) => {
-              return h('div', [
-                h('Button', {
-                  props: {
-                    type: 'primary',
-                    size: 'small'
-                  },
-                  style: {
-                    marginRight: '5px'
-                  },
-                  on: {
-                    click: () => {
-                      this.changeState(params.index)
-                    }
-                  }
-                }, '切换')
-              ])
-            }
           }
         ], // 用户表格格式
-        userDataAll: [], // 所有用户数据
-        userData: [], // 所有页面数据
-        userDataShow: [], // 当前页的用户数据
+        goodsDataAll: [], // 所有用户数据
+        goodsData: [], // 所有页面数据
+        goodsDataShow: [], // 当前页的用户数据
         current: 1, // 当前页码
         pageSize: 10 // 每页数据条数
       }
     },
     methods: {
       init (iWantToChangePage) {
-        // 根据当前情况将userDataAll中的数据传给userData和userDataShow
-        this.userData = []
+        // 根据当前情况将goodsDataAll中的数据传给goodsData和goodsDataShow
+        this.goodsData = []
         if (this.searchWord.trim() === '') {
-          this.userData = this.userDataAll
+          this.goodsData = this.goodsDataAll
         } else {
-          for (let i = 0; i < this.userDataAll.length; ++i) {
-            if (this.userDataAll[i]['uid'].indexOf(this.searchWord) !== -1 ||
-                this.userDataAll[i]['phone'].indexOf(this.searchWord) !== -1 ||
-                this.userDataAll[i]['email'].indexOf(this.searchWord) !== -1) {
-              this.userData.push(this.userDataAll[i])
+          for (let i = 0; i < this.goodsDataAll.length; ++i) {
+            if (this.goodsDataAll[i]['gid'].indexOf(this.searchWord) !== -1 ||
+								this.goodsDataAll[i]['state'].indexOf(this.searchWord) !== -1 ||
+                this.goodsDataAll[i]['owner'].indexOf(this.searchWord) !== -1 ||
+                this.goodsDataAll[i]['name'].indexOf(this.searchWord) !== -1) {
+              this.goodsData.push(this.goodsDataAll[i])
             }
           }
         }
         if (iWantToChangePage) {
-          this.userDataShow = this.userData.slice(0, Math.min(this.pageSize, this.userData.length))
+          this.goodsDataShow = this.goodsData.slice(0, Math.min(this.pageSize, this.goodsData.length))
           this.current = 1
         } else {
-          this.userDataShow = this.userData.slice((this.current - 1) * this.pageSize, Math.min((this.current - 1) * this.pageSize + this.pageSize, this.userData.length))
+          this.goodsDataShow = this.goodsData.slice((this.current - 1) * this.pageSize, Math.min((this.current - 1) * this.pageSize + this.pageSize, this.goodsData.length))
         }
       },
       fetchBase (url, body) {
@@ -121,8 +113,8 @@
       },
       changeState (index) {
         // 修改用户状态
-        let uid = this.userDataShow[index].uid
-        let state = this.userDataShow[index].state
+        let gid = this.goodsDataShow[index].gid
+        let state = this.goodsDataShow[index].state
         let newState = ''
         if (state === this.stateMap['-1']) {
           newState = this.stateMap['0']
@@ -135,10 +127,10 @@
         } else if (state === this.stateMap['3']) {
           newState = this.stateMap['-1']
         }
-        for (let i = 0; i < this.userDataAll.length; ++i) {
-          if (this.userDataAll[i].uid === uid) {
-            this.userDataAll[i].state = newState
-            this.userDataShow[index].state = newState
+        for (let i = 0; i < this.goodsDataAll.length; ++i) {
+          if (this.goodsDataAll[i].gid === gid) {
+            this.goodsDataAll[i].state = newState
+            this.goodsDataShow[index].state = newState
             break
           }
         }
@@ -153,12 +145,12 @@
       changeSort () {
         // 排序（需要修改）
         let key = ''
-        if (this.sortKeyWord === '状态') {
+        if (this.sortKeyWord === '估价') {
+          key = 'eval_price'
+        } else if (this.sortKeyWord === '定价') {
+          key = 'price'
+        } else if (this.sortKeyWord === '状态') {
           key = 'state'
-        } else if (this.sortKeyWord === '邮箱') {
-          key = 'email'
-        } else if (this.sortKeyWord === '手机') {
-          key = 'phone'
         } else if (this.sortKeyWord === '按关键字排序') {
           return
         }
@@ -166,7 +158,7 @@
         if (this.sortOrder === '降序') {
           num = -1
         }
-        this.userData.sort((item1, item2) => {
+        this.goodsData.sort((item1, item2) => {
           if (item1[key] > item2[key]) {
             return num
           } else if (item1[key] < item2[key]) {
@@ -181,11 +173,11 @@
         // 根据传入的type导出不同的数据
         let csv = '\ufeff'
         let keys = []
-        let temp = this.userDataAll
+        let temp = this.goodsDataAll
         if (type === 2) {
-          temp = this.userData
+          temp = this.goodsData
         }
-        this.userForm.forEach(function (item) {
+        this.goodsForm.forEach(function (item) {
           csv += '"' + item['title'] + '",'
           keys.push(item['key'])
         })
@@ -224,19 +216,19 @@
     },
     mounted () {
       // 初始化用户信息，这里应该是从数据库中获取到数据的，但是先手动模拟
-      this.userDataAll = [
-        {'uid': '001', 'email': 'email1', 'phone': 'phone1', 'state': this.stateMap['1']},
-        {'uid': '002', 'email': 'email2', 'phone': 'phone2', 'state': this.stateMap['1']},
-        {'uid': '003', 'email': 'email3', 'phone': 'phone3', 'state': this.stateMap['3']},
-        {'uid': '004', 'email': 'email4', 'phone': 'phone4', 'state': this.stateMap['1']},
-        {'uid': '005', 'email': 'email5', 'phone': 'phone5', 'state': this.stateMap['1']},
-        {'uid': '006', 'email': 'email6', 'phone': 'phone6', 'state': this.stateMap['3']},
-        {'uid': '007', 'email': 'email7', 'phone': 'phone7', 'state': this.stateMap['1']},
-        {'uid': '008', 'email': 'email8', 'phone': 'phone8', 'state': this.stateMap['1']},
-        {'uid': '009', 'email': 'email9', 'phone': 'phone9', 'state': this.stateMap['2']},
-        {'uid': '010', 'email': 'email10', 'phone': 'phone10', 'state': this.stateMap['-1']},
-        {'uid': '011', 'email': 'email11', 'phone': 'phone11', 'state': this.stateMap['0']},
-        {'uid': '012', 'email': 'email12', 'phone': 'phone12', 'state': this.stateMap['1']}
+      this.goodsDataAll = [
+        {'gid': '001', 'owner': 'owner1', 'price': 3.5, 'name': '商品1', 'eval_price': 35.6, 'category': '书籍', 'state': this.stateMap['1']},
+        {'gid': '002', 'owner': 'owner2', 'price': 3.5, 'name': '商品2', 'eval_price': 35.6, 'category': '书籍', 'state': this.stateMap['0']},
+        {'gid': '003', 'owner': 'owner3', 'price': 3.5, 'name': '商品3', 'eval_price': 35.6, 'category': '书籍', 'state': this.stateMap['1']},
+        {'gid': '004', 'owner': 'owner4', 'price': 34.5, 'name': '商品1', 'eval_price': 35.6, 'category': '书籍', 'state': this.stateMap['0']},
+        {'gid': '005', 'owner': 'owner5', 'price': 5.6, 'name': '商品1', 'eval_price': 35.6, 'category': '书籍', 'state': this.stateMap['1']},
+        {'gid': '006', 'owner': 'owner6', 'price': 30.5, 'name': '商品1', 'eval_price': 35.6, 'category': '书籍', 'state': this.stateMap['1']},
+        {'gid': '007', 'owner': 'owner7', 'price': 3.5, 'name': '商品1', 'eval_price': 35.6, 'category': '书籍', 'state': this.stateMap['1']},
+        {'gid': '008', 'owner': 'owner8', 'price': 3.5, 'name': '商品1', 'eval_price': 35.6, 'category': '书籍', 'state': this.stateMap['0']},
+        {'gid': '009', 'owner': 'owner9', 'price': 3.25, 'name': '商品1', 'eval_price': 35.6, 'category': '书籍', 'state': this.stateMap['1']},
+        {'gid': '0010', 'owner': 'owner10', 'price': 3.5, 'name': '商品1', 'eval_price': 35.6, 'category': '书籍', 'state': this.stateMap['1']},
+        {'gid': '0011', 'owner': 'owner11', 'price': 23.5, 'name': '商品1', 'eval_price': 35.6, 'category': '书籍', 'state': this.stateMap['1']},
+        {'gid': '0012', 'owner': 'owner12', 'price': 3.5, 'name': '商品1', 'eval_price': 35.6, 'category': '书籍', 'state': this.stateMap['0']}
       ]
       this.init(true)
     }
