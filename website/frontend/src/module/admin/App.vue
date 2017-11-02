@@ -9,17 +9,17 @@
               <Icon type="ios-navigate"></Icon>
               用户管理
             </template>
-            <MenuItem name="1-1" @click.native="test">用户1</MenuItem>
-            <MenuItem name="1-2">用户2</MenuItem>
-            <MenuItem name="1-3">用户3</MenuItem>
+            <MenuItem name="1-1" @click.native="toggle('user1')">用户1</MenuItem>
+            <MenuItem name="1-2" @click.native="toggle('user2')">用户2</MenuItem>
+            <MenuItem name="1-3" @click.native="toggle('user3')">用户3</MenuItem>
           </Submenu>
           <Submenu name="2">
             <template slot="title">
               <Icon type="ios-keypad"></Icon>
               商品管理
             </template>
-            <MenuItem name="2-1">商品1</MenuItem>
-            <MenuItem name="2-2">商品2</MenuItem>
+            <MenuItem name="2-1" @click.native="toggle('goods1')">在售商品</MenuItem>
+            <MenuItem name="2-2" @click.native="toggle('goods2')">下架商品</MenuItem>
           </Submenu>
           <Submenu name="3">
             <template slot="title">
@@ -28,6 +28,14 @@
             </template>
             <MenuItem name="3-1">交易1</MenuItem>
             <MenuItem name="3-2">交易2</MenuItem>
+          </Submenu>
+          <Submenu name="4">
+            <template slot="title">
+              <Icon type="ios-analytics"></Icon>
+              网站管理
+            </template>
+            <MenuItem name="4-1">管理1</MenuItem>
+            <MenuItem name="4-2">管理2</MenuItem>
           </Submenu>
         </Menu>
       </Col>
@@ -57,7 +65,7 @@
 				</div>
         <div class="layout-content">
           <div class="layout-content-main">
-					  <div :is="fuck"></div>
+					  <div :is="comp"></div>
           </div>
         </div>
         <div class="layout-copy">
@@ -68,28 +76,25 @@
   </div>
 </template>
 <script>
-import User1 from "./components/User1.vue";
-import User2 from "./components/User2.vue";
+import User1 from "./components/User1.vue"
+import User2 from "./components/User2.vue"
+import Goods1 from "./components/Goods1.vue"
+import Goods2 from "./components/Goods2.vue"
+import Deal1 from "./components/Deal1.vue"
 export default {
-  components: {
-    User1,
-    User2
+  components: {User1, User2, Goods1, Goods2, Deal1
   },
   data() {
     return {
-      fuck: "user1"
+      comp: "deal1"
     };
   },
   methods: {
-    test() {
-      if (this.fuck === "user1") {
-        this.fuck = "user2";
-      } else {
-        this.fuck = "user1";
-      }
+    toggle (comp) {
+      this.comp = comp
     }
   }
-};
+}
 </script>
 <style scoped>
 .layout {
