@@ -20,5 +20,6 @@ from . import view
 urlpatterns = [
     url(r'^$',view.index),
     url(r'^admin/',view.admin),
+    url(r'^productdetail/', view.productdetail),
     url(r'^signin/',view.signin),
 ]
