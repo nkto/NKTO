@@ -15,6 +15,8 @@
        <img src="/static/img/zoumadeng.jpg" class="img">
       </CarouselItem>
     </Carousel>
+    <Card>
+    <p slot="title" class="card-title">专区分类</p>
     <Row class="classify">
       <Col span="4" offset="4">
         <Card :bordered="false">
@@ -49,28 +51,42 @@
         </Card>
       </Col>
     </Row>
+    </Card>
     <Card class="newitem">
       <div>
-        <h2>今日上新</h2>
+        <p slot="title" class="card-title">今日上新</p>
         <Row>
           <Col span="5" offset="0">
             <Card>
+              <div style="text-align:center">
               <img src="/static/img/t1.jpg" class="newitemimg">
+              <p class="goods-name">九成新手机架</p>
+              <div style="margin-bottom:10px">
+              <p class="goods-price">12元</p>
+              <p class="label" style="">现价:</p>
+              </div>
+              </div>
             </Card>
           </Col>
           <Col span="5" offset="1">
             <Card>
+              <div style="text-align:center">
               <img src="/static/img/t2.jpg" class="newitemimg">
+              </div>
             </Card>
           </Col>
           <Col span="5" offset="1">
             <Card>
+              <div style="text-align:center">
               <img src="/static/img/t3.jpg" class="newitemimg">
+              </div>
             </Card>
           </Col>
           <Col span="5" offset="1">
             <Card>
+              <div style="text-align:center">
               <img src="/static/img/t4.jpg" class="newitemimg">
+              </div>
             </Card>
           </Col>
         </Row>
@@ -78,26 +94,34 @@
     </Card>
     <Card class="auctionitem">
       <div>
-        <h2>拍卖专区</h2>
+        <p slot="title" class="card-title">拍卖专区</p>
         <Row>
           <Col span="5">
             <Card>
+              <div style="text-align:center">
               <img src="/static/img/a1.jpg" class="newitemimg">
+              </div>
             </Card>
           </Col>
           <Col span="5" offset="1">
             <Card>
+              <div style="text-align:center">
               <img src="/static/img/a2.jpg" class="newitemimg">
+              </div>
             </Card>
           </Col>
           <Col span="5" offset="1">
             <Card>
+              <div style="text-align:center">
               <img src="/static/img/a3.jpg" class="newitemimg">
+              </div>
             </Card>
           </Col>
           <Col span="5" offset="1">
             <Card>
+              <div style="text-align:center">
               <img src="/static/img/a4.jpg" class="newitemimg">
+              </div>
             </Card>
           </Col>
         </Row>
@@ -140,11 +164,37 @@
     margin-top: 30px;
   }
   .newitemimg {
-    width: 250px;
-    height: 250px;
-    margin-left: 30px;
+    width: 100%;
+    height: 100%;
   }
   .auctionitem {
     margin-top: 50px;
+  }
+  .card-title {
+    font-size: 20px;
+  }
+  .goods-name {
+    font-size: 18px;
+    display: block;
+    width: 100%;
+    text-align: start;
+  }
+  .goods-price {
+    color: #ca0c4b;
+    font-style: italic;
+    font-weight: bold;
+    text-align: end;
+    padding-right: 10px;
+    width: fit-content;
+    float: right;
+  }
+  .price {
+    display: block;
+    width: 100%;
+  }
+  .label {
+    width: fit-content;
+    float: right;
+    margin-right: 10px;
   }
 </style>
