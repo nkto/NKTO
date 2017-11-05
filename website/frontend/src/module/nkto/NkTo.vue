@@ -3,16 +3,16 @@
     <nk-header></nk-header>
     <Carousel autoplay class="carou">
       <CarouselItem>
-        <img src="/static/zoumadeng.jpg" class="img">
+        <img src="/static/img/zoumadeng.jpg" class="img">
       </CarouselItem>
       <CarouselItem>
-        <img src="/static/zoumadeng.jpg" class="img">
+        <img src="/static/img/zoumadeng.jpg" class="img">
       </CarouselItem>
       <CarouselItem>
-        <img src="/static/zoumadeng.jpg" class="img">
+        <img src="/static/img/zoumadeng.jpg" class="img">
       </CarouselItem>
       <CarouselItem>
-       <img src="/static/zoumadeng.jpg" class="img">
+       <img src="/static/img/zoumadeng.jpg" class="img">
       </CarouselItem>
     </Carousel>
     <Row class="classify">
@@ -20,7 +20,7 @@
         <Card :bordered="false">
           <div style="text-align:center">
             <h3>收纳整理专区</h3>
-            <img src="/static/shouna.jpg" class="classimg">
+            <img src="/static/img/shouna.jpg" class="classimg">
           </div>
         </Card>
       </Col>
@@ -28,7 +28,7 @@
         <Card :bordered="false">
           <div style="text-align:center">
             <h3>教材杂志专区</h3>
-            <img src="/static/jiaocai.jpg" class="classimg">
+            <img src="/static/img/jiaocai.jpg" class="classimg">
           </div>
         </Card>
       </Col>
@@ -36,7 +36,7 @@
         <Card :bordered="false">
           <div style="text-align:center">
             <h3>办公文具专区</h3>
-            <img src="/static/bangong.jpg" class="classimg">
+            <img src="/static/img/bangong.jpg" class="classimg">
           </div>
         </Card>
       </Col>
@@ -44,7 +44,7 @@
         <Card :bordered="false">
           <div style="text-align:center">
             <h3>服装鞋帽专区</h3>
-            <img src="/static/fushi.jpg" class="classimg">
+            <img src="/static/img/fushi.jpg" class="classimg">
           </div>
         </Card>
       </Col>
@@ -55,22 +55,22 @@
         <Row>
           <Col span="5" offset="0">
             <Card>
-              <img src="/static/t1.jpg" class="newitemimg">
+              <img src="/static/img/t1.jpg" class="newitemimg">
             </Card>
           </Col>
           <Col span="5" offset="1">
             <Card>
-              <img src="/static/t2.jpg" class="newitemimg">
+              <img src="/static/img/t2.jpg" class="newitemimg">
             </Card>
           </Col>
           <Col span="5" offset="1">
             <Card>
-              <img src="/static/t3.jpg" class="newitemimg">
+              <img src="/static/img/t3.jpg" class="newitemimg">
             </Card>
           </Col>
           <Col span="5" offset="1">
             <Card>
-              <img src="/static/t4.jpg" class="newitemimg">
+              <img src="/static/img/t4.jpg" class="newitemimg">
             </Card>
           </Col>
         </Row>
@@ -82,22 +82,22 @@
         <Row>
           <Col span="5">
             <Card>
-              <img src="/static/a1.jpg" class="newitemimg">
+              <img src="/static/img/a1.jpg" class="newitemimg">
             </Card>
           </Col>
           <Col span="5" offset="1">
             <Card>
-              <img src="/static/a2.jpg" class="newitemimg">
+              <img src="/static/img/a2.jpg" class="newitemimg">
             </Card>
           </Col>
           <Col span="5" offset="1">
             <Card>
-              <img src="/static/a3.jpg" class="newitemimg">
+              <img src="/static/img/a3.jpg" class="newitemimg">
             </Card>
           </Col>
           <Col span="5" offset="1">
             <Card>
-              <img src="/static/a4.jpg" class="newitemimg">
+              <img src="/static/img/a4.jpg" class="newitemimg">
             </Card>
           </Col>
         </Row>
