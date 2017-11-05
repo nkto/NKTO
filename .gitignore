@@ -7,3 +7,5 @@ website/frontend/node_modules/*
 website/frontend/package-lock.json
 website/backend/__pycache__/*
 website/backend/migrations/__pycache__/*
+website/backend/apis/__pycache__/*
+website/.vs/*
