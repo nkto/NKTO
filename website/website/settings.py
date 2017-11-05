@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'backend',
 ]
 
 MIDDLEWARE = [
@@ -73,26 +74,17 @@ WSGI_APPLICATION = 'website.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'nkto',
-#         'USER': 'root',
-#         'PASSWORD': 'qwer123',
-#         'HOST': '',
-#         'PORT': '4080',
-#         'OPTIONS':{
-#             'autocommit':True,
-#         }
-#     }
-# }
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
-
+         'ENGINE': 'django.db.backends.mysql',
+         'NAME': 'nkto',
+         'USER': 'root',
+         'PASSWORD': 'qwer123',
+         'OPTIONS':{
+             'autocommit':True,
+         }
+     }
+ }
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
