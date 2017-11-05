@@ -1,6 +1,6 @@
 <template>
   <div>
-    <nk-header></nk-header>
+    <nktoHeader></nktoHeader>
     <Carousel autoplay class="carou">
       <CarouselItem>
         <img src="/static/img/zoumadeng.jpg" class="img">
@@ -104,14 +104,14 @@
       </div>
     </Card>
     <BackTop></BackTop>
-    <nk-footer></nk-footer>
+    <nktoFooter></nktoFooter>
   </div>
 </template>
 <script>
-  import NkHeader from '../../components/nktoHeader'
-  import NkFooter from '../../components/nktoFooter'
+  import nktoHeader from '../../components/nktoHeader'
+  import nktoFooter from '../../components/nktoFooter'
   export default {
-    components: {NkHeader, NkFooter},
+    components: {nktoHeader, nktoFooter},
     data () {
       return {
       }
