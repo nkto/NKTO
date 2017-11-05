@@ -15,6 +15,8 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
+from django.views.generic.base import TemplateView
+from django.conf.urls import include
 from . import view
 
 urlpatterns = [
@@ -22,4 +24,5 @@ urlpatterns = [
     url(r'^admin/',view.admin),
     url(r'^productdetail/', view.productdetail),
     url(r'^signin/',view.signin),
+    url(r'^', include('backend.urls')),
 ]
