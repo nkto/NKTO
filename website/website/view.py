@@ -8,3 +8,6 @@ def admin(request):
 
 def productdetail(request):
     return render(request, 'productdetail.html')
+  
+def signin(request):
+    return render(request, 'signin.html')
