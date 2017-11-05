@@ -4,14 +4,9 @@
       <Col span="6"><img src="/static/img/logo.jpg" class="img"></Col>
       <Col span="8"><Input icon="search" class="search" placeholder="请输入搜索内容"></Input></Col>
       <Col span="6">
-        <Row type="flex" justify="center" align="middle">
-          <Col span="4">
-          <Button type="ghost" shape="circle" class="avatar-btn"><Img class="user-avatar" src="/static/img/user.png"/></Button>
-          </Col>
-          <Col span="4">
-          <Button class="login-btn" type="text">尚未登录？点我注册</Button>
-          </Col>
-        </Row>
+        <div>
+          <online></online>
+        </div>
       </Col>
     </Row>
     <div>
@@ -50,6 +45,18 @@
   </div>
 </template>
 <script>
+  import online from './online'
+  import offline from './offline'
+  export default {
+    components: {online, offline},
+    data () {
+      return {
+      }
+    },
+    methods: {
+
+    }
+  }
 </script>
 <style scoped>
   .img {
@@ -95,16 +102,5 @@
     padding-bottom: 20px;
     overflow: hidden;
     font-size: 20px;
-  }
-  .avatar-btn {
-    height: 50px;
-    width: 60px;
-  }
-  .user-avatar {
-    height: 100%;
-    width: 100%;
-  }
-  .login-btn {
-    font-size: 15px;
   }
 </style>
