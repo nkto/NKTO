@@ -1,10 +1,10 @@
 <template>
 <Row type="flex" justify="center" align="middle">
     <Col span="4">
-    <Button type="ghost" shape="circle" class="avatar-btn"><Img class="user-avatar" src="/static/img/user.png"/></Button>
+    <Button type="ghost" shape="circle" class="avatar-btn"><Icon type="person" size="30"></Icon></Button>
     </Col>
     <Col span="4">
-    <Button class="login-btn" type="text">尚未登录？点我注册</Button>
+    <Button class="login-btn" type="text">尚未注册?&emsp;<br>开启新世界大门！</Button>
     </Col>
 </Row>
 </template>

@@ -7,6 +7,7 @@
             <DropdownItem >修改个人信息<Icon type="settings" style="margin-left:3px;"></Icon></DropdownItem>
             <DropdownItem >查看收藏列表<Icon type="bookmark" style="margin-left:5px;"></Icon></DropdownItem>
             <DropdownItem >历史浏览记录<Icon type="compass" style="margin-left:3px;"></Icon></DropdownItem>
+            <DropdownItem divided>注销</DropdownItem>
         </DropdownMenu>
     </Dropdown>
     </Col>
