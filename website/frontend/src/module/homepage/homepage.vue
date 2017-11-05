@@ -108,8 +108,8 @@
   </div>
 </template>
 <script>
-  import NkHeader from '../../components/NkHeader'
-  import NkFooter from '../../components/NkFooter'
+  import NkHeader from '../../components/nktoHeader'
+  import NkFooter from '../../components/nktoFooter'
   export default {
     components: {NkHeader, NkFooter},
     data () {
