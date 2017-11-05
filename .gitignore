@@ -4,3 +4,4 @@ website/db.sqlite3
 website/frontend/dist/*
 website/frontend/node_modules/*
 
+website/frontend/package-lock.json

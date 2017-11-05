@@ -1,8 +1,19 @@
 <template>
   <div class="header">
-    <img src="/static/logo.jpg" class="img">
-    <Input icon="search" class="search" placeholder="请输入搜索内容"></Input>
-    <div class="car">我的购物车</div>
+    <Row type="flex" justify="center" align="middle">
+      <Col span="6"><img src="/static/img/logo.jpg" class="img"></Col>
+      <Col span="8"><Input icon="search" class="search" placeholder="请输入搜索内容"></Input></Col>
+      <Col span="6">
+        <Row type="flex" justify="center" align="middle">
+          <Col span="4">
+          <Button type="ghost" shape="circle" class="avatar-btn"><Img class="user-avatar" src="/static/img/user.png"/></Button>
+          </Col>
+          <Col span="4">
+          <Button class="login-btn" type="text">尚未登录？点我注册</Button>
+          </Col>
+        </Row>
+      </Col>
+    </Row>
     <div>
       <div class="bg"></div>
       <div class="shouye">首页</div>
@@ -42,14 +53,13 @@
 </script>
 <style scoped>
   .img {
-    width: 100px;
+    width: 150px;
     height: 100px;
-    margin-left: 7%;
+    margin-left: 60px;
   }
   .search {
     width: 300px;
-    margin-left: 25%;
-    margin-top: -45px;
+    margin-left:30px
   }
   .menu {
     width: 82%;
@@ -59,12 +69,10 @@
     display: inline-block;
     overflow: hidden;
     height: 70px;
-    width: 10%;
-    margin-left: 150px;
     outline: none;
     border:  1px solid#C0C0C0;
     background-color: #FFFFFF;
-    background-image: url('/static/car.jpg');
+    background-image: url('/static/img/car.jpg');
     background-size: 40px 40px;
     background-repeat: no-repeat;
     background-position: 2%;
@@ -87,5 +95,16 @@
     padding-bottom: 20px;
     overflow: hidden;
     font-size: 20px;
+  }
+  .avatar-btn {
+    height: 50px;
+    width: 60px;
+  }
+  .user-avatar {
+    height: 100%;
+    width: 100%;
+  }
+  .login-btn {
+    font-size: 15px;
   }
 </style>
