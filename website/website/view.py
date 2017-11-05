@@ -7,7 +7,7 @@ def admin(request):
     return render(request, 'admin.html')
 
 def productdetail(request):
-    return render(request, 'productdetail.html')
+    return render(request, 'nktoproductdetail.html')
   
 def signin(request):
     return render(request, 'signin.html')
