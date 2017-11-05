@@ -5,8 +5,9 @@
         <Button type="ghost" shape="circle" class="avatar-btn"><Img class="user-avatar" src="/static/img/a3.jpg"/></Button>
         <DropdownMenu slot="list">
             <DropdownItem >修改个人信息<Icon type="settings" style="margin-left:3px;"></Icon></DropdownItem>
+            <DropdownItem >发布商品记录<Icon type="folder" style="margin-left:3px;"></Icon></DropdownItem>
             <DropdownItem >查看收藏列表<Icon type="bookmark" style="margin-left:5px;"></Icon></DropdownItem>
-            <DropdownItem >历史浏览记录<Icon type="compass" style="margin-left:3px;"></Icon></DropdownItem>
+            <DropdownItem >我的浏览历史<Icon type="compass" style="margin-left:3px;"></Icon></DropdownItem>
             <DropdownItem divided>注销</DropdownItem>
         </DropdownMenu>
     </Dropdown>

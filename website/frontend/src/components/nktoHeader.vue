@@ -5,8 +5,8 @@
       <Col span="8"><Input icon="search" class="search" placeholder="请输入搜索内容"></Input></Col>
       <Col span="6">
         <div>
-          <!-- <online></online> -->
-          <offline></offline>
+          <online></online>
+          <!-- <offline></offline> -->
         </div>
       </Col>
     </Row>
