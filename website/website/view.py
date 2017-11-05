@@ -11,3 +11,6 @@ def productdetail(request):
   
 def signin(request):
     return render(request, 'signin.html')
+
+def setting(request):
+    return render(request, 'setting.html')
