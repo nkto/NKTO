@@ -6,5 +6,8 @@ def index(request):
 def admin(request):
     return render(request, 'admin.html')
 
+def productdetail(request):
+    return render(request, 'productdetail.html')
+  
 def signin(request):
     return render(request, 'signin.html')
