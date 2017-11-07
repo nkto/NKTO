@@ -64,7 +64,7 @@ export default {
             'username': this.username.trim(),
             'password': this.password.trim()
         })
-        if (res['flag'] > 0) {
+        if (res['flag'] === 1) {
             this.$Message.success('登录成功')
             window.location.href = '/'
         } else if (res['flag'] === -1) {
@@ -73,8 +73,26 @@ export default {
             this.$Message.warning('无此账号')
         } else if (res['flag'] === -3) {
             this.$Message.error('登录失败')
+        } else if (res['flag'] === -4) {
+            this.$Message.warning('此账号已被封禁')
+        } else if (res['flag'] === -5) {
+            this.$Message.warning('此账号尚未激活，请查看邮箱进行激活')
+        } else if (res['flag'] === 2) {
+            this.$Message.success('此账号为管理员账号，将为您跳转到管理员页面')
+            window.location.href = '/admin'
         }
         this.clear()
+    }
+  },
+  async created () {
+    let res = await this.fetchBase('/api/user/validate/', {
+      'type': 2
+    })
+    if (res['flag'] === -1) {
+      this.$Message.warning('未登录')
+    } else if (res['flag'] === 1) {
+      this.$Message.success('检测到您已登录，自动为您跳转')
+      setTimeout(() => {window.location.href = '/'}, 2000)
     }
   }
 }
