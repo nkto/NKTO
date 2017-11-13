@@ -2,9 +2,10 @@
     <div class="total" style="height:100%">
     <logoheader></logoheader>
     <hr>
+    <div style="height:100%">
     <Menu :theme="theme3" active-name="1" class="menu">
-        <MenuGroup title="个人相关信息" @click.native="transfer('information')">
-            <MenuItem name="1">
+        <MenuGroup title="个人相关信息">
+            <MenuItem name="1" @click.native="transfer('information')">
                 <Icon type="settings" ></Icon>
                 修改个人信息
             </MenuItem>
@@ -32,7 +33,8 @@
             </MenuItem>
         </MenuGroup>
     </Menu>
-    <div :is="form" style="height:100%">
+    <div :is="form" class="screen">
+    </div>
     </div>
     <nkto-footer></nkto-footer>
     </div>
@@ -64,6 +66,14 @@ export default {
  .menu {
      height: 100%;
      float: left;
+     width: 16%;
+ }
+ .screen {
+     height: 100%;
+     width: 75%;
+     float: left;
+     margin-top: 15px;
+     margin-left: 4%;
  }
 </style>
 
