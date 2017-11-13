@@ -90,8 +90,45 @@ export default {
     };
   },
   methods: {
+    getCookie (cName) {
+        if (document.cookie.length > 0) {
+          let cStart = document.cookie.indexOf(cName + '=')
+          if (cStart !== -1) {
+            cStart = cStart + cName.length + 1
+            let cEnd = document.cookie.indexOf(';', cStart)
+            if (cEnd === -1) {
+              cEnd = document.cookie.length
+            }
+            return unescape(document.cookie.substring(cStart, cEnd))
+          }
+        }
+        return ''
+    },
+    fetchBase (url, body) {
+        return fetch(url, {
+          method: 'post',
+          credentials: 'same-origin',
+          headers: {
+            'X-CSRFToken': this.getCookie('csrftoken'),
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(body)
+        })
+        .then((res) => res.json())
+    },
     toggle (comp) {
       this.comp = comp
+    }
+  },
+  async created () {
+    let res = await this.fetchBase('/api/user/validate/', {
+      'type': 2
+    })
+    if (res['flag'] === -1) {
+      this.$Message.warning('未登录')
+    } else if (res['flag'] === 1 || res['flag'] === 2) {
+      this.$Message.success('您已登录')
     }
   }
 }
