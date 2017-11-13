@@ -8,7 +8,7 @@
             <DropdownItem >发布商品记录<Icon type="folder" style="margin-left:3px;"></Icon></DropdownItem>
             <DropdownItem >查看收藏列表<Icon type="bookmark" style="margin-left:5px;"></Icon></DropdownItem>
             <DropdownItem >我的浏览历史<Icon type="compass" style="margin-left:3px;"></Icon></DropdownItem>
-            <DropdownItem divided>注销</DropdownItem>
+            <DropdownItem divided><a @click="logout">注销</a></DropdownItem>
         </DropdownMenu>
     </Dropdown>
     </Col>
@@ -22,7 +22,59 @@
 </template>
 <script>
 export default {
-  
+  data () {
+    return {
+
+    }
+  },
+  methods: {
+    getCookie (cName) {
+        if (document.cookie.length > 0) {
+          let cStart = document.cookie.indexOf(cName + '=')
+          if (cStart !== -1) {
+            cStart = cStart + cName.length + 1
+            let cEnd = document.cookie.indexOf(';', cStart)
+            if (cEnd === -1) {
+              cEnd = document.cookie.length
+            }
+            return unescape(document.cookie.substring(cStart, cEnd))
+          }
+        }
+        return ''
+    },
+    fetchBase (url, body) {
+        return fetch(url, {
+          method: 'post',
+          credentials: 'same-origin',
+          headers: {
+            'X-CSRFToken': this.getCookie('csrftoken'),
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(body)
+        })
+        .then((res) => res.json())
+    },
+    async logout () {
+      this.$Message.error('dd')
+      let res = await this.fetchBase('/api/user/logout/')
+      if (res['flag'] === -1) {
+        this.$Message.error('注销失败')
+      } else if (res['flag'] === 1) {
+        this.$Message.success('注销成功')
+      }
+    }
+  },
+  async created () {
+    let res = await this.fetchBase('/api/user/validate/', {
+      'type': 1
+    })
+    if (res['flag'] === -1) {
+      this.$Message.warning('未登录')
+    } else if (res['flag'] === 1) {
+      this.$Message.success('您已登录')
+    }
+  }
 }
 </script>
 <style scoped>
