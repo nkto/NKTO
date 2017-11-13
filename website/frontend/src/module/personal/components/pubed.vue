@@ -1,6 +1,6 @@
 <template>
   <div>
-      history
+      pubed
   </div>
 </template>
 <script>
