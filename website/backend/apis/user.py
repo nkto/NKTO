@@ -11,14 +11,12 @@ def generate_md5(s):
 
 @ensure_csrf_cookie
 def user_register(request):
-    print('fuck')
     if hasattr(request, 'body'):
         info = json.loads(request.body.decode('utf8'))
         #先检查是不是已经存在
-        res = models.NKTO_User.objects.get(email = info['email'])
+        res = models.NKTO_User.objects.filter(email = info['email'])
         if len(res) > 0:
             return JsonResponse({'flag': -2, 'msg': "already exist"})
-
         password = generate_md5(info['password'])
         time =  datetime.datetime.now()
         #这里应该发送一封邮件
