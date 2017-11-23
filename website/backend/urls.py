@@ -8,4 +8,5 @@ urlpatterns = [
     url(r'^api/user/signin/$', user.user_login),
     url(r'^api/user/logout/$', user.user_logout),
     url(r'^api/user/validate/$', user.user_validate),
+    url(r'^api/user/storeimage/$', user.user_storeimage),
 ]
