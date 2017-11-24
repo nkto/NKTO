@@ -1,4 +1,4 @@
-import json,hashlib,re, datetime
+import json,hashlib,re, datetime, time
 from .. import models
 from django.views.decorators.csrf import csrf_exempt, ensure_csrf_cookie
 from django.http import HttpResponse, JsonResponse
@@ -135,3 +135,15 @@ def user_modify(request):
             pass
     else:
         pass
+
+
+@ensure_csrf_cookie
+def user_storeimage(request):
+    file = request.FILES['image']
+    md5 = hashlib.md5()
+    md5.update(str(int(time.time())).encode('utf8'))
+    name = md5.hexdigest() + '.png'
+    with open('./static/upload/' + name, 'wb') as destination:
+        for chunk in file.chunks():
+            destination.write(chunk)
+    return JsonResponse({'url': '/static/upload/' + name})
