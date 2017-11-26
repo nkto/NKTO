@@ -142,6 +142,19 @@
           }
         }
         return ''
+      },
+      fetchBase (url, body) {
+          return fetch(url, {
+            method: 'post',
+            credentials: 'same-origin',
+            headers: {
+              'X-CSRFToken': this.getCookie('csrftoken'),
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(body)
+          })
+          .then((res) => res.json())
       }
     },
     created: function () {

@@ -147,3 +147,19 @@ def user_storeimage(request):
         for chunk in file.chunks():
             destination.write(chunk)
     return JsonResponse({'url': '/static/upload/' + name})
+
+@ensure_csrf_cookie
+def user_checkstate(request):
+    ''' 檢查用戶是否已經登錄，返回true或者false ''' 
+    # 檢查session中是否有uid
+    try:
+        uid = int(request.session['uid'])
+        print(uid)
+        # 檢查用戶狀態
+        obj = models.NKTO_User.objects.filter(uid=uid)
+        print(obj[0].icon)
+        if len(obj) == 0:
+            return JsonResponse({'flag': -2, 'msg': 'no such account'})
+        return JsonResponse({'flag': 1, 'msg': obj[0].icon})
+    except BaseException as e:
+        return JsonResponse({'flag': -1, 'msg': 'not logged'})
