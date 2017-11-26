@@ -26,6 +26,7 @@ class NKTO_Goods(models.Model):
     eval_price = models.FloatField()
     category = models.IntegerField(default = 0)
     state = models.IntegerField(default = 0)
+    time = models.DateTimeField(auto_now_add = True)
     def __str__(self):
         return self.name
 
