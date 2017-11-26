@@ -5,7 +5,7 @@
       <Col span="8"><Input icon="search" class="search" placeholder="请输入搜索内容"></Input></Col>
       <Col span="6">
         <div>
-          <online></online>
+          <div :is="userstate" :icon="usericon"></div>
           <!-- <offline></offline> -->
         </div>
       </Col>
@@ -52,10 +52,49 @@
     components: {online, offline},
     data () {
       return {
+        userstate: 'offline',
+        usericon: ''
       }
     },
     methods: {
-
+      getCookie (cName) {
+          if (document.cookie.length > 0) {
+            let cStart = document.cookie.indexOf(cName + '=')
+            if (cStart !== -1) {
+              cStart = cStart + cName.length + 1
+              let cEnd = document.cookie.indexOf(';', cStart)
+              if (cEnd === -1) {
+                cEnd = document.cookie.length
+              }
+              return unescape(document.cookie.substring(cStart, cEnd))
+            }
+          }
+          return ''
+      },
+      fetchBase (url, body) {
+          return fetch(url, {
+            method: 'post',
+            credentials: 'same-origin',
+            headers: {
+              'X-CSRFToken': this.getCookie('csrftoken'),
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(body)
+          })
+          .then((res) => res.json())
+      }      
+    },
+    async created () {
+      // 先發送一個請求驗證是否已經登錄
+      let res = await this.fetchBase('/api/user/checkstate/', {})
+      console.log(res)
+      if (res['flag'] === 1) {
+        this.userstate = 'online'
+        this.usericon = res['msg']
+      } else {
+        this.userstate = 'offline'
+      }
     }
   }
 </script>
