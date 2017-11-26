@@ -2,26 +2,27 @@
 <Row type="flex" justify="center" align="middle">
     <Col span="6">
     <Dropdown placement="bottom-start">
-        <Button type="ghost" shape="circle" class="avatar-btn"><Img class="user-avatar" src="/static/img/a3.jpg"/></Button>
+        <Button type="ghost" shape="circle" class="avatar-btn"><Img class="user-avatar" :src="icon"/></Button>
         <DropdownMenu slot="list">
-            <DropdownItem >修改个人信息<Icon type="settings" style="margin-left:3px;"></Icon></DropdownItem>
-            <DropdownItem >发布商品记录<Icon type="folder" style="margin-left:3px;"></Icon></DropdownItem>
-            <DropdownItem >查看收藏列表<Icon type="bookmark" style="margin-left:5px;"></Icon></DropdownItem>
-            <DropdownItem >我的浏览历史<Icon type="compass" style="margin-left:3px;"></Icon></DropdownItem>
+            <DropdownItem @click.native="personsetting()">修改个人信息<Icon type="settings" style="margin-left:3px;"></Icon></DropdownItem>
+            <DropdownItem @click.native="personsetting()">发布商品记录<Icon type="folder" style="margin-left:3px;"></Icon></DropdownItem>
+            <DropdownItem @click.native="personsetting()">查看收藏列表<Icon type="bookmark" style="margin-left:5px;"></Icon></DropdownItem>
+            <DropdownItem @click.native="personsetting()">我的浏览历史<Icon type="compass" style="margin-left:3px;"></Icon></DropdownItem>
             <DropdownItem divided><a @click="logout">注销</a></DropdownItem>
         </DropdownMenu>
     </Dropdown>
     </Col>
     <Col span="9">
-    <Button class="pub-btn" type="ghost" shape="circle" icon="lightbulb">发布新商品</Button>
+    <Button class="pub-btn" type="ghost" shape="circle" icon="lightbulb" @click="personsetting()">发布新商品</Button>
     </Col>
     <Col span="9">
-    <Button class="pub-btn" type="ghost" shape="circle" icon="ios-cart-outline">查看已下订单</Button>
+    <Button class="pub-btn" type="ghost" shape="circle" icon="ios-cart-outline" @click="personsetting()">查看已下订单</Button>
     </Col>
 </Row>
 </template>
 <script>
 export default {
+  props: ['icon'],
   data () {
     return {
 
@@ -55,6 +56,9 @@ export default {
         })
         .then((res) => res.json())
     },
+    personsetting () {
+      location.href = '/setting'
+    },
     async logout () {
       this.$Message.error('dd')
       let res = await this.fetchBase('/api/user/logout/')
@@ -66,6 +70,7 @@ export default {
     }
   },
   async created () {
+    console.log(this.icon)
     let res = await this.fetchBase('/api/user/validate/', {
       'type': 1
     })

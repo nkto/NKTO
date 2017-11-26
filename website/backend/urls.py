@@ -9,4 +9,5 @@ urlpatterns = [
     url(r'^api/user/logout/$', user.user_logout),
     url(r'^api/user/validate/$', user.user_validate),
     url(r'^api/user/storeimage/$', user.user_storeimage),
+    url(r'^api/user/checkstate/$', user.user_checkstate),
 ]
