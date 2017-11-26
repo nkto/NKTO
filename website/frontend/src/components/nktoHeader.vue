@@ -12,8 +12,10 @@
     </Row>
     <div>
       <div class="bg"></div>
-      <div class="shouye">首页</div>
       <Menu mode="horizontal" theme="primary" active-name="1" class="menu">
+        <MenuItem name = "0">
+          &nbsp;&nbsp;首页
+        </MenuItem>
         <MenuItem name="1">
           <Icon type="ios-paper"></Icon>
           收纳整理
@@ -70,8 +72,7 @@
     margin-left:30px
   }
   .menu {
-    width: 82%;
-    display: inline-block;
+    width: 100%;
   }
   .car {
     display: inline-block;
@@ -90,11 +91,11 @@
     padding-top: 20px;
   }
   .bg {
-    display: inline-block;
     width: 10%;
     padding-top: 60px;
     overflow: hidden;
     background-color: #eb6133;
+    float: left;
   }
   .shouye {
     display: inline-block;

@@ -120,7 +120,7 @@ def user_validate(request):
 def user_modify(request):
     if hasattr(request, 'body'):
         info = json.loads(request.body.decode('utf8'))
-        obj = models.NKTO_User.filter(uid = info['id'])
+        obj = models.NKTO_User.objects.filter(uid = info['id'])
         if len(obj) > 0:
             if hasattr(info, 'icon'):
                 obj.update(icon = info['icon'])

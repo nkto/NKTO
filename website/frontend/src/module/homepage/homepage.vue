@@ -56,36 +56,15 @@
       <div>
         <p slot="title" class="card-title">今日上新</p>
         <Row>
-          <Col span="5" offset="0">
+          <Col v-for = "(item,index) in newitems" :key = "index "span="5" :offset="index == 0 ? 0 : 1">
             <Card>
               <div style="text-align:center">
-              <img src="/static/img/t1.jpg" class="newitemimg">
-              <p class="goods-name">九成新手机架</p>
+              <img :src="item.src" class="newitemimg">
+              <p class="goods-name">{{item.name}}</p>
               <div style="margin-bottom:10px">
-              <p class="goods-price">12元</p>
+              <p class="goods-price">{{item.value}}元</p>
               <p class="label" style="">现价:</p>
               </div>
-              </div>
-            </Card>
-          </Col>
-          <Col span="5" offset="1">
-            <Card>
-              <div style="text-align:center">
-              <img src="/static/img/t2.jpg" class="newitemimg">
-              </div>
-            </Card>
-          </Col>
-          <Col span="5" offset="1">
-            <Card>
-              <div style="text-align:center">
-              <img src="/static/img/t3.jpg" class="newitemimg">
-              </div>
-            </Card>
-          </Col>
-          <Col span="5" offset="1">
-            <Card>
-              <div style="text-align:center">
-              <img src="/static/img/t4.jpg" class="newitemimg">
               </div>
             </Card>
           </Col>
@@ -138,20 +117,64 @@
     components: {nktoHeader, nktoFooter},
     data () {
       return {
+        newitems: [{
+            name: '手机架',
+            value: 14,
+            src: '/static/img/t1.jpg'
+        }, {
+            name: '厨具',
+            value: 15,
+            src: '/static/img/t2.jpg'
+        }]
       }
     },
     methods: {
-
+        getCookie (cName) {
+        if (document.cookie.length > 0) {
+          let cStart = document.cookie.indexOf(cName + '=')
+          if (cStart !== -1) {
+            cStart = cStart + cName.length + 1
+            let cEnd = document.cookie.indexOf(';', cStart)
+            if (cEnd === -1) {
+              cEnd = document.cookie.length
+            }
+            return unescape(document.cookie.substring(cStart, cEnd))
+          }
+        }
+        return ''
+      }
+    },
+    created: function () {
+        fetch('/api/goods/newitems/', {
+          method: 'post',
+          credentials: 'same-origin',
+          headers: {
+            'X-CSRFToken': this.getCookie('csrftoken'),
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          }
+        }).then((res) => res.json()).then((res) => {
+            this.newitems.splice(0, this.newitems.length)
+            for (let i = 0; i < res['message'].length; ++i) {
+            let data = {}
+            data['src'] = res['message'][i]['src']
+            data['name'] = res['message'][i]['name']
+            data['value'] = res['message'][i]['value']
+            this.newitems.push(data)
+          }
+        })
     }
   }
 </script>
 <style scoped>
   .img {
     width: 100%;
-    height: 500px;
+    height: 400px;
   }
   .carou {
-    margin: 50px 0;
+    margin-bottom: 50px;
+    margin-left: 0;
+    margin-right: 0;
   }
   .classify {
     width: 100%;
