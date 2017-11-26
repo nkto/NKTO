@@ -27,6 +27,9 @@
               状态：已完成。
             </div>
           </Col>
+          <Col span="8" class="finished">
+            <img src="/static/img/finished-red.png" alt="" class="finished-red">
+          </Col>
         </Row>
       </Card>
       <Card>
@@ -66,5 +69,12 @@ export default {
 }
 </script>
 <style scoped>
-
+.finished-red {
+  width: 200px;
+  height: 200px;
+}
+.finished {
+  position: absolute;
+  right: 130px;
+}
 </style>

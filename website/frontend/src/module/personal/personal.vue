@@ -56,10 +56,45 @@ export default {
         }
     },
     methods: {
+        getCookie (cName) {
+          if (document.cookie.length > 0) {
+            let cStart = document.cookie.indexOf(cName + '=')
+            if (cStart !== -1) {
+              cStart = cStart + cName.length + 1
+              let cEnd = document.cookie.indexOf(';', cStart)
+              if (cEnd === -1) {
+                cEnd = document.cookie.length
+              }
+              return unescape(document.cookie.substring(cStart, cEnd))
+            }
+          }
+          return ''
+          },
+          fetchBase (url, body) {
+              return fetch(url, {
+                method: 'post',
+                credentials: 'same-origin',
+                headers: {
+                  'X-CSRFToken': this.getCookie('csrftoken'),
+                  'Accept': 'application/json',
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(body)
+              })
+              .then((res) => res.json())
+          },
         transfer(newform) {
             this.form = newform
         }
-  }
+    },
+    async mounted () {
+      // 先發送一個請求驗證是否已經登錄
+      let res = await this.fetchBase('/api/user/checkstate/', {})
+      console.log(res)
+      if (res['flag'] !== 1) {
+        location.href = '/'
+      }
+    }
 }
 </script>
 <style scoped>
