@@ -16,7 +16,7 @@
     <Button class="pub-btn" type="ghost" shape="circle" icon="lightbulb" @click="personsetting('publish')">发布新商品</Button>
     </Col>
     <Col span="9">
-    <Button class="pub-btn" type="ghost" shape="circle" icon="ios-cart-outline" @click="personsetting()">查看已下订单</Button>
+    <Button class="pub-btn" type="ghost" shape="circle" icon="ios-cart-outline" @click="personsetting('order')">查看已下订单</Button>
     </Col>
 </Row>
 </template>

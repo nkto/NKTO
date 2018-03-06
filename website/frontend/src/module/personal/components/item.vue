@@ -41,21 +41,13 @@
 		data () {
 			return {
 				// 由于item组件要给其他不同的组件调用，所以下面的字段会根据上面的type来显示
-				name: '[八成新] 书支架', // 商品名
 				showname: true,
-				dealtime: '2017/08/02 12:30 pm', // 交易时间
 				showdealtime: true,
-				dealpos: '津南 理科食堂一楼', // 交易地点
 				showdealpos: true,
-				cate: '日用品', // 商品类别
 				showcate: true,
-				state: 'finished', // 商品状态
 				showstate: true,
-				uptime: '2017/11/01', // 商品上传时间
 				showuptime: true,
-				price: '34 元',
         showprice: true,
-        imgUrl: '/static/img/t1.jpg', // 商品图片
 			}
 		},
 		created () {
