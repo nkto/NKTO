@@ -79,7 +79,7 @@ DATABASES = {
          'ENGINE': 'django.db.backends.mysql',
          'NAME': 'nkto',
          'USER': 'root',
-         'PASSWORD': 'qwer123',
+         'PASSWORD': 'mysql930',#'qwer123',
          'OPTIONS':{
              'autocommit':True,
          }
