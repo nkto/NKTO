@@ -36,7 +36,6 @@
     <div :is="form" class="screen">
     </div>
     </div>
-    <nkto-footer></nkto-footer>
     </div>
 </template>
 <script>
@@ -53,7 +52,7 @@ export default {
     data() {
         return {
             form: 'information',
-            activenum: 1,
+            activenum: '1',
         }
     },
     methods: {
@@ -95,28 +94,29 @@ export default {
       if (res['flag'] !== 1) {
         location.href = '/'
       }
+      let last = location.href.split('/')[location.href.split('/').length - 1]
+      if (last === 'information') {
+        this.form = 'information'
+        this.activenum = '1'
+      } else if (last === 'pubed') {
+        this.form = 'pubed'
+        this.activenum = '3'
+      } else if (last === 'collect') {
+        this.form = 'collect'
+        this.activenum = '4'
+      } else if (last === 'history') {
+        this.form = 'history'
+        this.activenum = '5'
+      } else if (last === 'publish') {
+        this.form = 'publish'
+        this.activenum = '2'
+      } else if (last === 'order') {
+        this.form = 'order'
+        this.activenum = '6'
+      }
     },
     created () {
-        let last = location.href.split('/')[location.href.split('/').length - 1]
-        if (last === 'information') {
-            this.form = 'information'
-            this.activenum = 1
-        } else if (last === 'pubed') {
-            this.form = 'pubed'
-            this.activenum = 3
-        } else if (last === 'collect') {
-            this.form = 'collect'
-            this.activenum = 4
-        } else if (last === 'history') {
-            this.form = 'history'
-            this.activenum = 5
-        } else if (last === 'publish') {
-            this.form = 'publish'
-            this.activenum = 2
-        } else if (last === 'order') {
-            this.form = 'order'
-            this.activenum = 6
-        }
+        
     }
 }
 </script>
