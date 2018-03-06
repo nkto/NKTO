@@ -3,7 +3,7 @@
     <logoheader></logoheader>
     <hr>
     <div style="height:100%">
-    <Menu :theme="theme3" active-name="1" class="menu">
+    <Menu :theme="theme3" :active-name="activenum" class="menu">
         <MenuGroup title="个人相关信息">
             <MenuItem name="1" @click.native="transfer('information')">
                 <Icon type="settings" ></Icon>
@@ -52,7 +52,8 @@ export default {
     components: {collect,history,information,order,publish,pubed,logoheader,nktoFooter},
     data() {
         return {
-            form: 'information'
+            form: 'information',
+            activenum: 1,
         }
     },
     methods: {
@@ -84,7 +85,7 @@ export default {
               .then((res) => res.json())
           },
         transfer(newform) {
-            this.form = newform
+            location.href = '/setting/' + newform
         }
     },
     async mounted () {
@@ -94,6 +95,28 @@ export default {
       if (res['flag'] !== 1) {
         location.href = '/'
       }
+    },
+    created () {
+        let last = location.href.split('/')[location.href.split('/').length - 1]
+        if (last === 'information') {
+            this.form = 'information'
+            this.activenum = 1
+        } else if (last === 'pubed') {
+            this.form = 'pubed'
+            this.activenum = 3
+        } else if (last === 'collect') {
+            this.form = 'collect'
+            this.activenum = 4
+        } else if (last === 'history') {
+            this.form = 'history'
+            this.activenum = 5
+        } else if (last === 'publish') {
+            this.form = 'publish'
+            this.activenum = 2
+        } else if (last === 'order') {
+            this.form = 'order'
+            this.activenum = 6
+        }
     }
 }
 </script>

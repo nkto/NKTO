@@ -1,6 +1,6 @@
 <template>
   <div>
-      collect
+      collect hello world
   </div>
 </template>
 <script>
