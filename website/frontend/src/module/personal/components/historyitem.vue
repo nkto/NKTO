@@ -13,6 +13,9 @@
 					<h3>状态：   {{state}}</h3>
 				</div>
       </Col>
+			<Col span="8" class="finished" v-if="state  === '已卖'">
+        <img src="/static/img/ysc.png" alt="" class="finished-red">
+      </Col>
       <Col span="8" class="favo" v-if="showfav">
         <Button @click="no">取消收藏</Button>
       </Col>
@@ -58,5 +61,13 @@
 }
 .favo {
 	margin-top: 20px;
+}
+.finished-red {
+  width: 200px;
+  height: 200px;
+}
+.finished {
+  position: absolute;
+  right: 130px;
 }
 </style>
