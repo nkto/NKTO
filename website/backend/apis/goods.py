@@ -1,5 +1,6 @@
 from django.views.decorators.csrf import csrf_exempt, ensure_csrf_cookie
 from django.http import HttpResponse, JsonResponse
+import json,hashlib,re, datetime, time
 from .. import models
 
 @ensure_csrf_cookie
@@ -14,3 +15,10 @@ def new_item(request):
         item['value'] = i.price
         items.append(item)
     return JsonResponse({'message': items})
+
+@ensure_csrf_cookie
+def generate(request):
+    info = json.loads(request.body.decode('utf8'))
+    form = info['formitem']
+    special = info['special']
+    return JsonResponse({'price': form['price']})

@@ -7,7 +7,7 @@
             <DropdownItem @click.native="personsetting('information')">修改个人信息<Icon type="settings" style="margin-left:3px;"></Icon></DropdownItem>
             <DropdownItem @click.native="personsetting('pubed')">发布商品记录<Icon type="folder" style="margin-left:3px;"></Icon></DropdownItem>
             <DropdownItem @click.native="personsetting('collect')">查看收藏列表<Icon type="bookmark" style="margin-left:5px;"></Icon></DropdownItem>
-            <DropdownItem @click.native="personsetting('his')">我的浏览历史<Icon type="compass" style="margin-left:3px;"></Icon></DropdownItem>
+            <DropdownItem @click.native="personsetting('history')">我的浏览历史<Icon type="compass" style="margin-left:3px;"></Icon></DropdownItem>
             <DropdownItem divided><a @click="logout">注销</a></DropdownItem>
         </DropdownMenu>
     </Dropdown>
