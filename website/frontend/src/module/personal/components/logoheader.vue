@@ -10,7 +10,6 @@
   export default {
     methods: {
       gotoHome () {
-        this.$Message.warning('fuck')
         location.href = '/'
       }
     }
