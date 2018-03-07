@@ -9,6 +9,10 @@
                 <Icon type="settings" ></Icon>
                 修改个人信息
             </MenuItem>
+            <MenuItem name="chat" @click.native="transfer('CustomerTalk')">
+              <Icon type="document" ></Icon>
+              聊天记录
+            </MenuItem>
         </MenuGroup>
         <MenuGroup title="商品相关">
             <MenuItem name="publish" @click.native="transfer('publish')">
@@ -33,7 +37,7 @@
             </MenuItem>
         </MenuGroup>
     </Menu>
-    <div :is="form" class="screen">
+    <div :is="form" class="screen" @send="send" :content="currentcontent" :name="usrname" :uid="uid">
     </div>
     </div>
     <nkto-footer></nkto-footer>
@@ -48,12 +52,17 @@ import information from './components/information'
 import order from './components/order'
 import publish from './components/publish'
 import pubed from './components/pubed'
+import CustomerTalk from '../../components/CustomerTalk'
 export default {
-    components: {collect,history,information,order,publish,pubed,logoheader,nktoFooter},
+    components: {collect,history,information,order,publish,pubed,logoheader,nktoFooter, CustomerTalk},
     data() {
         return {
             form: 'information',
-            active: 'information'
+            active: 'information',
+            currentcontent: [],
+            usrname: 'hehe',
+            uid: '1',
+            socket: null
         }
     },
     methods: {
@@ -70,22 +79,54 @@ export default {
             }
           }
           return ''
-          },
-          fetchBase (url, body) {
-              return fetch(url, {
-                method: 'post',
-                credentials: 'same-origin',
-                headers: {
-                  'X-CSRFToken': this.getCookie('csrftoken'),
-                  'Accept': 'application/json',
-                  'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(body)
-              })
-              .then((res) => res.json())
-          },
+        },
+        fetchBase (url, body) {
+          return fetch(url, {
+            method: 'post',
+              credentials: 'same-origin',
+              headers: {
+                'X-CSRFToken': this.getCookie('csrftoken'),
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(body)
+          }).then((res) => res.json())
+        },
         transfer(newform) {
             this.form = newform
+        },
+        dateformat (date) {
+          let seperator1 = '-'
+          let seperator2 = ':'
+          let month = date.getMonth() + 1
+          let strDate = date.getDate()
+          if (month >= 1 && month <= 9) {
+            month = '0' + month
+          }
+          if (strDate >= 0 && strDate <= 9) {
+            strDate = '0' + strDate
+          }
+          var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate + ' ' + date.getHours() + seperator2 + date.getMinutes() + seperator2 + date.getSeconds()
+          return currentdate
+        },
+        myResponse () {
+        this.socket.on('getresponse', (msg) => {
+          let data = {}
+          data['word'] = decodeURI(msg['data'])
+          data['self'] = false
+          data['time'] = msg['time']
+          data['src'] = decodeURI(msg['src'])
+          this.currentcontent.push(data)
+        })
+        },
+        send (msg) {
+          let data = {}
+          data['word'] = msg
+          data['self'] = true
+          data['time'] = this.dateformat(new Date())
+          data['src'] = '/static/img/user.png'
+          this.currentcontent.push(data)
+          this.socket.emit('sendmessage', {data: encodeURI(msg), time: data['time'], src: encodeURI(data['src']), uid: this.uid})
         }
     },
     async mounted () {
@@ -94,6 +135,13 @@ export default {
       console.log(res)
       if (res['flag'] !== 1) {
         location.href = '/'
+      }
+    },
+    created: function () {
+      if(this.socket === null) {
+        this.socket = io.connect('http://' + document.domain + ':' + location.port + '/test')
+        this.socket.emit('connected', {uid: this.uid})
+        this.myResponse()
       }
     }
 }
