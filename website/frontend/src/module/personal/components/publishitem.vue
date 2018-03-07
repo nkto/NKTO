@@ -18,7 +18,10 @@
           <h3>状态：   {{state}}</h3>
         </div>
       </Col>
-      <Col span="8" class="finished" v-if="state === '未卖'">
+      <Col span="8" class="finished" v-if="state  === '已卖'">
+        <img src="/static/img/ysc.png" alt="" class="finished-red">
+      </Col>
+      <Col span="8" class="afinished" v-if="state === '未卖'">
         <Button>编辑</Button>
       </Col>
     </Row>
@@ -51,14 +54,22 @@
 .lg {
   color: lightgray;
 }
+.afinished-red {
+  width: 200px;
+  height: 200px;
+}
+.afinished {
+  position: absolute;
+  text-align: right;
+  right: 30px;
+  top: -10px;
+}
 .finished-red {
   width: 200px;
   height: 200px;
 }
 .finished {
   position: absolute;
-  text-align: right;
-  right: 30px;
-  top: -10px;
+  right: 130px;
 }
 </style>
