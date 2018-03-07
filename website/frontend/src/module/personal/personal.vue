@@ -3,7 +3,7 @@
     <logoheader></logoheader>
     <hr>
     <div style="height:100%">
-    <Menu :theme="theme3" :active-name="active" class="menu">
+    <Menu :theme="theme3" :active-name="activenum" class="menu">
         <MenuGroup title="个人相关信息">
             <MenuItem name="information" @click.native="transfer('information')">
                 <Icon type="settings" ></Icon>
@@ -40,7 +40,6 @@
     <div :is="form" class="screen" @send="send" :content="currentcontent" :name="usrname" :uid="uid">
     </div>
     </div>
-    <nkto-footer></nkto-footer>
     </div>
 </template>
 <script>
@@ -62,7 +61,8 @@ export default {
             currentcontent: [],
             usrname: 'hehe',
             uid: '1',
-            socket: null
+            socket: null,
+            activenum: '1',
         }
     },
     methods: {
@@ -94,6 +94,7 @@ export default {
         },
         transfer(newform) {
             this.form = newform
+            location.href = '/setting/' + newform
         },
         dateformat (date) {
           let seperator1 = '-'
@@ -142,6 +143,26 @@ export default {
         this.socket = io.connect('http://' + document.domain + ':' + location.port + '/test')
         this.socket.emit('connected', {uid: this.uid})
         this.myResponse()
+      }
+      let last = location.href.split('/')[location.href.split('/').length - 1]
+      if (last === 'information') {
+        this.form = 'information'
+        this.activenum = '1'
+      } else if (last === 'pubed') {
+        this.form = 'pubed'
+        this.activenum = '3'
+      } else if (last === 'collect') {
+        this.form = 'collect'
+        this.activenum = '4'
+      } else if (last === 'history') {
+        this.form = 'history'
+        this.activenum = '5'
+      } else if (last === 'publish') {
+        this.form = 'publish'
+        this.activenum = '2'
+      } else if (last === 'order') {
+        this.form = 'order'
+        this.activenum = '6'
       }
     }
 }

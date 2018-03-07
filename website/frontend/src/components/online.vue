@@ -56,8 +56,8 @@ export default {
         })
         .then((res) => res.json())
     },
-    personsetting (name) {
-      location.href = ('/setting/#' + name + '/')
+    personsetting (item) {
+      location.href = '/setting/' + item
     },
     async logout () {
       this.$Message.error('dd')
