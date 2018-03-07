@@ -56,8 +56,7 @@ export default {
     components: {collect,history,information,order,publish,pubed,logoheader,nktoFooter, CustomerTalk},
     data() {
         return {
-            form: 'information',
-            active: 'information',
+            form: 'CustomerTalk',
             currentcontent: [],
             usrname: 'hehe',
             uid: '1',
