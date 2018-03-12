@@ -14,10 +14,11 @@
             <Input v-model="formItem.price" class="input" disabled></Input>
           </FormItem>
           <FormItem label="商品现价">
-            <Input v-model="formItem.shijia" class="input" disabled></Input>
+            <Input v-model="formItem.xianjia" class="input" disabled></Input>
           </FormItem>
           <FormItem label="新旧程度">
             <Select v-model="formItem.xinjiu" class="input" disabled>
+              <Option value="7">7</Option>
             </Select>
           </FormItem>
           <FormItem label="购买日期">
@@ -30,7 +31,7 @@
             </Row>
           </FormItem>
           <FormItem label="详细情况">
-            <Input v-model="formItem.textarea" type="textarea" :autosize="{minRows: 2,maxRows: 5}" class="input"></Input>
+            <Input v-model="formItem.textarea" type="textarea" :autosize="{minRows: 2,maxRows: 5}" class="input" disabled></Input>
           </FormItem>
         </Form>
       </Card>
@@ -86,13 +87,12 @@
         modal1: false,
         modal2: false,
         formItem: {
-          name: '',
-          xiniju: '',
-          price: '',
-          date: '',
-          textarea: '',
+          xinjiu: '7',
+          price: 50,
+          date: '2017-11-25',
+          textarea: '整体保存良好，并没有明显的磨痕和损伤。',
           category: '',
-          shijia: ''
+          xianjia: 20
         },
         checkplace: {
           place: '',
